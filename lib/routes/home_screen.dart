@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/Providers/notes_provider.dart';
 import 'package:notes_app/routes/add_note.dart';
+import 'package:notes_app/routes/update_note.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,8 +26,38 @@ class _HomeScreenState extends State<HomeScreen> {
               ListTile(
                 title: Text(note.title),
                 subtitle: Text(note.desc),
-                trailing: IconButton(onPressed: (){},
-                  icon: Icon(Icons.delete),),
+                trailing: IconButton(onPressed: (){
+                  showDialog(
+                    context:context,
+                    builder:(context){
+                      return AlertDialog(
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListTile(
+                              title: Text("Update Note"),
+                              trailing: IconButton(
+                                  onPressed: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdateNote(note: note)),);
+                                  },
+                                  icon: Icon(Icons.note_alt_outlined)),
+                            ),
+                            ListTile(
+                              title: Text("Delete Note"),
+                              trailing: IconButton(
+                                  onPressed: (){
+                                    Provider.of<NotesProvider>(context,listen: false).delete(note);
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(Icons.delete)),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+                  icon: Icon(Icons.more_vert_rounded),),
               )
           ],
         );

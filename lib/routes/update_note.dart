@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/routes/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../MyDB/Mydb.dart';
@@ -60,7 +61,7 @@ class _UpdateNoteState extends State<UpdateNote> {
                       desc: desc.text,
                     );
                     Provider.of<NotesProvider>(context,listen: false).update(note);
-                    Navigator.pop(context);
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
