@@ -16,7 +16,7 @@ class NotesProvider with ChangeNotifier {
   }
 
   insert(NotesModels note) async {
-    db.inset(note);
+    db.insert(note);
     getNotes();
   }
 
@@ -25,7 +25,7 @@ class NotesProvider with ChangeNotifier {
     getNotes();
   }
 
-  delet(NotesModels note) async {
+  delete(NotesModels note) async {
     db.delete(note);
     getNotes();
   }

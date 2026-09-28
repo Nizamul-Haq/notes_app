@@ -26,13 +26,12 @@ class Mydb {
     for(var note in data){
       NotesModels myNote = NotesModels.fromMap(note);
       notes.add(myNote);
-      Navigator.pop(context as BuildContext);
     }
     return notes;
   }
 
 
-  void inset(NotesModels note) async {
+  void insert(NotesModels note) async {
     final db= await database();
     db.insert("notes", note.toMap(),conflictAlgorithm: ConflictAlgorithm.replace);
   }

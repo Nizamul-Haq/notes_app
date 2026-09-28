@@ -1,26 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/MyDB/Mydb.dart';
-import 'package:notes_app/Providers/notes_provider.dart';
-import 'package:notes_app/models/notes_models.dart';
 import 'package:provider/provider.dart';
 
-class AddNote extends StatefulWidget {
-  const AddNote({super.key});
+import '../MyDB/Mydb.dart';
+import '../Providers/notes_provider.dart';
+import '../models/notes_models.dart';
+
+class UpdateNote extends StatefulWidget {
+  final NotesModels note;
+  const UpdateNote({super.key, required this.note});
 
   @override
-  State<AddNote> createState() => _AddNoteState();
+  State<UpdateNote> createState() => _UpdateNoteState();
 }
 
-class _AddNoteState extends State<AddNote> {
+class _UpdateNoteState extends State<UpdateNote> {
+
   Mydb db = Mydb();
+  @override
+  @override
+  void initState() {
+    title.text=widget.note.title;
+    desc.text=widget.note.desc;
+    super.initState();
+  }
   TextEditingController title = TextEditingController();
   TextEditingController desc = TextEditingController();
+
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Note"),
+        title: Text("Update Note"),
       ),
       body: ListView(
         children: [
@@ -42,10 +55,11 @@ class _AddNoteState extends State<AddNote> {
                 ElevatedButton(
                   onPressed: () {
                     NotesModels note = NotesModels(
+                      id: widget.note.id,
                       title: title.text,
                       desc: desc.text,
                     );
-                    Provider.of<NotesProvider>(context,listen: false).insert(note);
+                    Provider.of<NotesProvider>(context,listen: false).update(note);
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
@@ -62,3 +76,4 @@ class _AddNoteState extends State<AddNote> {
     );
   }
 }
+

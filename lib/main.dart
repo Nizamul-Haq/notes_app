@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +17,9 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       lazy: false,
       create: (context) => NotesProvider(),
-      child: MaterialApp(home: HomeScreen()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+          home: HomeScreen()),
     );
   }
 }
