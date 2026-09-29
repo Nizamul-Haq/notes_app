@@ -15,8 +15,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("All Notes"),
-      centerTitle: true,
+      appBar: AppBar(
+        leading: Image.asset("assets/app_icon/Note_app_icon.png"),
+        title: Text("All Notes"),
+        centerTitle: true,
       ),
       body: Consumer<NotesProvider>(builder: (context,provider,child){
         return provider.notes.isEmpty? Center(child: Text("Empty",),) :
@@ -24,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             for(var note in provider.notes)
               ListTile(
+                leading: Icon(Icons.menu_book_rounded),
                 title: Text(note.title),
                 subtitle: Text(note.desc),
                 trailing: IconButton(onPressed: (){
