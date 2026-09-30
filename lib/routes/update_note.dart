@@ -34,6 +34,7 @@ class _UpdateNoteState extends State<UpdateNote> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.grey,
         title: Text("Update Note"),
       ),
       body: ListView(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/Providers/notes_provider.dart';
 import 'package:notes_app/routes/add_note.dart';
+import 'package:notes_app/routes/read_note.dart';
 import 'package:notes_app/routes/update_note.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.grey,
         leading: Image.asset("assets/app_icon/Note_app_icon.png"),
         title: Text("All Notes"),
         centerTitle: true,
@@ -26,6 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             for(var note in provider.notes)
               ListTile(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ReadNote(note: note,)));
+                },
                 leading: Icon(Icons.menu_book_rounded),
                 title: Text(note.title),
                 subtitle: Text(note.desc),
@@ -50,6 +55,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               trailing: IconButton(
                                   onPressed: (){
                                     Provider.of<NotesProvider>(context,listen: false).delete(note);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.redAccent,
+                                        content: Text("Note deleted successfully"),
+                                      ),
+                                    );
                                     Navigator.pop(context);
                                   },
                                   icon: Icon(Icons.delete)),
